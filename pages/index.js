@@ -1,25 +1,26 @@
-import Head from 'next/head'
-import { makeStyles } from '@mui/styles'
+import Head from "next/head";
+import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles(()=>{
+const useStyles = makeStyles(() => {
   return {
-    container:{
-      width:'100%',
-      height:'100%',
-      display:'flex',
-      justifyContent:'center',
-      alignItems:'center'
+    container: {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
-    title:{
-      margin: '0',
-      lineHeight: '1.15',
-      fontSize: '48px',
-    }
-  }
-})
+    title: {
+      margin: "0",
+      lineHeight: "1.15",
+      fontSize: "48px",
+      textAlign: "center",
+    },
+  };
+});
 
 export default function Home() {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <>
       <Head>
@@ -30,9 +31,9 @@ export default function Home() {
 
       <div className={classes.container}>
         <h1 className={classes.title}>
-          Welcome to <span style={{color:'red'}}>Feminino</span>
+          Welcome to <span style={{ color: "red" }}>Feminino</span>
         </h1>
       </div>
     </>
-  )
+  );
 }
