@@ -1,3 +1,5 @@
+import React from "react";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { makeStyles } from "@mui/styles";
 
@@ -9,31 +11,31 @@ const useStyles = makeStyles(() => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      backgroundColor: "black",
     },
     title: {
       margin: "0",
       lineHeight: "1.15",
       fontSize: "48px",
       textAlign: "center",
+      color: "white",
     },
   };
 });
 
 export default function Home() {
   const classes = useStyles();
+
+  const DynamicComponent = dynamic(() => import("../components/Players"));
+
   return (
     <>
       <Head>
         <title>Feminino</title>
         <meta name="description" content="A sports driven website for women" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={classes.container}>
-        <h1 className={classes.title}>
-          Welcome to <span style={{ color: "red" }}>Feminino</span>
-        </h1>
-      </div>
+      <DynamicComponent />
     </>
   );
 }
