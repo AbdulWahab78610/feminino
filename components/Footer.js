@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => {
       width: "100%",
       maxWidth: "450px",
       height: "65px",
-      position: "fixed",
+      position: "absolute",
       bottom: "0",
       left: "0",
       backgroundColor: "black",
