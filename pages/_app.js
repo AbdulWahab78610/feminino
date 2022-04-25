@@ -23,6 +23,11 @@ const useStyles = makeStyles(() => {
       height: "calc(100% - 64px)",
       padding: "0px 10px 65px",
       overflow: "scroll",
+      scrollbarWidth: "none" /* IE and Edge */,
+      msOverflowStyle: "none" /* Firefox */,
+      "&::-webkit-scrollbar": {
+        display: "none" /* Hide scrollbar for Chrome, Safari and Opera */,
+      },
     },
   };
 });
