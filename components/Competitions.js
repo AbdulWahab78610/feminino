@@ -1,6 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
+import { useQuery } from "react-query";
 import { makeStyles } from "@mui/styles";
 import StarIcon from "@mui/icons-material/Star";
+import { competitionsData } from "../DummyData/competitions";
 
 const useStyles = makeStyles(() => {
   return {
@@ -27,7 +30,7 @@ const useStyles = makeStyles(() => {
     isFavorite: {
       color: "#40E9D2",
     },
-    leagueName: {
+    name: {
       fontSize: "20px",
       fontFamily: "Montserrat",
       color: "white",
@@ -40,27 +43,33 @@ const useStyles = makeStyles(() => {
 export default function Competitions() {
   const classes = useStyles();
 
+  const { data } = useQuery("competitions", () => {
+    return competitionsData;
+  });
+
   return (
     <>
       <div className={classes.players}>
         <div className={classes.activeHeading}>COMPETITIONS</div>
-        {data.map((value, index) => {
+        {data?.map((value) => {
           return (
             <>
-              <div className={classes.card}>
-                <Image
-                  src={value.image}
-                  alt={value.image}
-                  width="65"
-                  height="65"
-                />
-                <div className={classes.leagueName}>{value.leagueName}</div>
-                <StarIcon
-                  className={
-                    value.isFavorite ? classes.isFavorite : classes.star
-                  }
-                />
-              </div>
+              <Link href={`/comps/${value.competition_id}/standings`}>
+                <div className={classes.card} key={value.competition_id}>
+                  <Image
+                    src="/images/t2.svg"
+                    alt="comp logo"
+                    width="65"
+                    height="65"
+                  />
+                  <div className={classes.name}>{value.name}</div>
+                  <StarIcon
+                    className={
+                      value.isFavorite ? classes.isFavorite : classes.star
+                    }
+                  />
+                </div>
+              </Link>
             </>
           );
         })}
@@ -68,48 +77,3 @@ export default function Competitions() {
     </>
   );
 }
-
-// Dummy DATA to be deleted
-
-const data = [
-  {
-    image: "/images/t2.svg",
-    leagueName: "National Women’s Soccer League",
-    isFavorite: true,
-  },
-  {
-    image: "/images/t2.svg",
-    leagueName: "National Women’s Soccer League",
-    isFavorite: true,
-  },
-  {
-    image: "/images/t2.svg",
-    leagueName: "National Women’s Soccer League",
-    isFavorite: true,
-  },
-  {
-    image: "/images/t2.svg",
-    leagueName: "National Women’s Soccer League",
-    isFavorite: true,
-  },
-  {
-    image: "/images/t2.svg",
-    leagueName: "National Women’s Soccer League",
-    isFavorite: true,
-  },
-  {
-    image: "/images/t2.svg",
-    leagueName: "National Women’s Soccer League",
-    isFavorite: true,
-  },
-  {
-    image: "/images/t2.svg",
-    leagueName: "National Women’s Soccer League",
-    isFavorite: true,
-  },
-  {
-    image: "/images/t2.svg",
-    leagueName: "National Women’s Soccer League",
-    isFavorite: true,
-  },
-];

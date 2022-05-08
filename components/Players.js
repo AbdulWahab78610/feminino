@@ -1,7 +1,10 @@
+import React from "react";
+import { encode } from "base-64";
 import Image from "next/image";
+// import { useQuery } from "react-query";
 import { makeStyles } from "@mui/styles";
 import StarIcon from "@mui/icons-material/Star";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -12,6 +15,9 @@ const settings = {
   slidesToShow: 3,
   slidesToScroll: 3,
 };
+
+const username = "andrea";
+const password = "jet)1qF5Y@";
 
 const useStyles = makeStyles(() => {
   return {
@@ -86,6 +92,52 @@ const useStyles = makeStyles(() => {
 
 export default function Players() {
   const classes = useStyles();
+
+  let auth = new Headers();
+
+  const creds = window.btoa(`${username}:${password}`);
+
+  const basic = "Basic " + creds;
+
+  auth.append("Authorization", basic);
+
+  // for (var pair of myHeaders.entries()) {
+  //   console.log(pair[0] + ": " + pair[1]);
+  // }
+  // const { data: comps } = useQuery("players", () => {
+  //   return fetch(
+  //     "https://dsg-api.com/clients/andrea/soccer/get_competitions?client=andrea&authkey=64Yhk1qxMaGXHbuZiD3Utdw0nm5cjgNPFOE",
+  //     {
+  //       headers: new Headers({
+  //         Authorization: "Basic " + auth("andrea:jet)1qF5Y@"),
+  //       }),
+  //     }
+  //   );
+  // });
+
+  // console.log("data", comps);
+
+  const fetchData = async () => {
+    try {
+      const data = await fetch(
+        "https://dsg-api.com/clients/andrea/soccer/get_competitions?client=andrea&authkey=64Yhk1qxMaGXHbuZiD3Utdw0nm5cjgNPFOE",
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Basic YW5kcmVhOmpldCkxcUY1WUA=",
+          },
+        }
+      ).then((res) => res.json());
+
+      console.log("data", data);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
