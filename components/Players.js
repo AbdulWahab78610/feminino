@@ -16,9 +16,6 @@ const settings = {
   slidesToScroll: 3,
 };
 
-const username = "andrea";
-const password = "jet)1qF5Y@";
-
 const useStyles = makeStyles(() => {
   return {
     heading: {
@@ -92,52 +89,6 @@ const useStyles = makeStyles(() => {
 
 export default function Players() {
   const classes = useStyles();
-
-  let auth = new Headers();
-
-  const creds = window.btoa(`${username}:${password}`);
-
-  const basic = "Basic " + creds;
-
-  auth.append("Authorization", basic);
-
-  // for (var pair of myHeaders.entries()) {
-  //   console.log(pair[0] + ": " + pair[1]);
-  // }
-  // const { data: comps } = useQuery("players", () => {
-  //   return fetch(
-  //     "https://dsg-api.com/clients/andrea/soccer/get_competitions?client=andrea&authkey=64Yhk1qxMaGXHbuZiD3Utdw0nm5cjgNPFOE",
-  //     {
-  //       headers: new Headers({
-  //         Authorization: "Basic " + auth("andrea:jet)1qF5Y@"),
-  //       }),
-  //     }
-  //   );
-  // });
-
-  // console.log("data", comps);
-
-  const fetchData = async () => {
-    try {
-      const data = await fetch(
-        "https://dsg-api.com/clients/andrea/soccer/get_competitions?client=andrea&authkey=64Yhk1qxMaGXHbuZiD3Utdw0nm5cjgNPFOE",
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Basic YW5kcmVhOmpldCkxcUY1WUA=",
-          },
-        }
-      ).then((res) => res.json());
-
-      console.log("data", data);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  React.useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <>
