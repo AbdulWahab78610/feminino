@@ -119,7 +119,7 @@ export default function Competitions() {
         <span className={classes.breadcrumbs}>{initials}</span>
         <span className={classes.breadcrumbs}>{competitionType}</span>
       </Breadcrumbs>
-      <div className={classes.card} key={compData.competition_id}>
+      <div className={classes.card}>
         <Image src="/images/t2.svg" alt="comp logo" width="65" height="65" />
         <div className={classes.name}>{compData.name}</div>
         <StarIcon

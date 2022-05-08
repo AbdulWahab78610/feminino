@@ -48,7 +48,7 @@ export default function Footer() {
           <div className={classes.navigation}>
             <Image
               src={
-                pathname === "/"
+                pathname === "/" || pathname.indexOf("/player") > -1
                   ? "/images/footerIconS1.svg"
                   : "/images/footerIcon1.svg"
               }
@@ -58,7 +58,9 @@ export default function Footer() {
             ></Image>
             <div
               className={
-                pathname === "/" ? classes.headingSelected : classes.heading
+                pathname === "/" || pathname.indexOf("/player") > -1
+                  ? classes.headingSelected
+                  : classes.heading
               }
             >
               Players

@@ -1,5 +1,6 @@
 import React from "react";
-import { encode } from "base-64";
+// import { encode } from "base-64";
+import Link from "next/link";
 import Image from "next/image";
 // import { useQuery } from "react-query";
 import { makeStyles } from "@mui/styles";
@@ -116,29 +117,41 @@ export default function Players() {
         {data.map((value, index) => {
           return (
             <>
-              <div className={classes.playerCard}>
-                <Image
-                  src={value.image}
-                  alt={value.image}
-                  width="65"
-                  height="65"
-                />
-                <div className="stat">
-                  <div className={classes.name}>{value.name}</div>
-                  <div className={classes.info}>{value.info}</div>
+              <Link
+                href={{
+                  pathname: "/player/[playerID]",
+                  query: {
+                    id: value.id,
+                    playerID: value.id,
+                    playerName: value.name,
+                    playerType: "Striker",
+                  },
+                }}
+              >
+                <div className={classes.playerCard}>
+                  <Image
+                    src={value.image}
+                    alt={value.image}
+                    width="65"
+                    height="65"
+                  />
+                  <div className="stat">
+                    <div className={classes.name}>{value.name}</div>
+                    <div className={classes.info}>{value.info}</div>
+                  </div>
+                  <Image
+                    src={value.leagueImage}
+                    alt="t2"
+                    width="43"
+                    height="43"
+                  />
+                  <StarIcon
+                    className={
+                      value.isFavorite ? classes.isFavorite : classes.star
+                    }
+                  />
                 </div>
-                <Image
-                  src={value.leagueImage}
-                  alt="t2"
-                  width="43"
-                  height="43"
-                />
-                <StarIcon
-                  className={
-                    value.isFavorite ? classes.isFavorite : classes.star
-                  }
-                />
-              </div>
+              </Link>
             </>
           );
         })}
@@ -156,6 +169,7 @@ const data = [
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: true,
+    id: 1,
   },
   {
     image: "/images/t1.svg",
@@ -163,6 +177,7 @@ const data = [
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
+    id: 2,
   },
   {
     image: "/images/t1.svg",
@@ -170,6 +185,7 @@ const data = [
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
+    id: 3,
   },
   {
     image: "/images/t1.svg",
@@ -177,6 +193,7 @@ const data = [
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
+    id: 4,
   },
   {
     image: "/images/t1.svg",
@@ -184,6 +201,7 @@ const data = [
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
+    id: 5,
   },
   {
     image: "/images/t1.svg",
@@ -191,6 +209,7 @@ const data = [
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
+    id: 6,
   },
   {
     image: "/images/t1.svg",
@@ -198,6 +217,7 @@ const data = [
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
+    id: 7,
   },
   {
     image: "/images/t1.svg",
@@ -205,6 +225,7 @@ const data = [
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
+    id: 8,
   },
   {
     image: "/images/t1.svg",
@@ -212,5 +233,6 @@ const data = [
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
+    id: 9,
   },
 ];
