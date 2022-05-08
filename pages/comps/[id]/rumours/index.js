@@ -47,9 +47,6 @@ const useStyles = makeStyles(() => {
       fontSize: "16px",
       fontFamily: "Montserrat",
     },
-    chevron: {
-      color: "white",
-    },
     allTypes: {
       display: "flex",
       flexWrap: "wrap",
@@ -62,26 +59,38 @@ const useStyles = makeStyles(() => {
       fontFamily: "Montserrat",
       paddingRight: "10px",
     },
+    chevron: {
+      color: "white",
+    },
     standingsCard: {
       width: "100%",
       borderRadius: "10px",
       backgroundColor: "rgba(233,64,87,0.75)",
       padding: "10px 5px",
     },
-    cardHeading: {
-      marginBottom: "5px",
-      color: "white",
-      fontSize: "14px",
-      fontFamily: "Montserrat",
+    compCard: {
+      width: "100%",
+      height: "64px",
+      borderRadius: "10px",
+      backgroundColor: "rgba(233,64,87,0.75)",
+      marginBottom: "10px",
       display: "flex",
-      justifyContent: "space-between",
+      padding: "10px 20px",
+      justifyContent: "center",
       alignItems: "center",
+      fontSize: "16px",
+      fontFamily: "Montserrat",
+      color: "white",
     },
-    colMain: {
-      width: "120px",
+    isFavorite: {
+      color: "#40E9D2",
     },
-    colSecondary: {
-      padding: "0px 5px",
+    teamName: {
+      fontSize: "15px",
+      fontFamily: "Montserrat",
+      color: "white",
+      paddingLeft: "15px",
+      paddingRight: "15px",
     },
   };
 });
@@ -92,7 +101,7 @@ export default function Competitions() {
     query: { id: competitionID },
   } = useRouter();
 
-  const competitionType = "Standings";
+  const competitionType = "Rumours";
 
   const { data: allCompData } = useQuery("competitions", () => {
     return competitionsData;
@@ -112,6 +121,7 @@ export default function Competitions() {
             classes={{ root: classes.chevron }}
           ></ChevronRightIcon>
         }
+        maxItems={3}
       >
         <Link href="/comps">
           <span className={classes.breadcrumbsMain}>COMPS</span>
@@ -119,8 +129,8 @@ export default function Competitions() {
         <span className={classes.breadcrumbs}>{initials}</span>
         <span className={classes.breadcrumbs}>{competitionType}</span>
       </Breadcrumbs>
-      <div className={classes.card} key={compData.competition_id}>
-        <Image src="/images/t2.svg" alt="comp logo" width="65" height="65" />
+      <div className={classes.card}>
+        <Image src="/images/t2.svg" alt="comp logo" width="65" height="55" />
         <div className={classes.name}>{compData.name}</div>
         <StarIcon
           className={compData.isFavorite ? classes.isFavorite : classes.star}
@@ -147,28 +157,9 @@ export default function Competitions() {
           );
         })}
       </div>
-      <div className={classes.standingsCard}>
-        <div className={classes.cardHeading}>
-          <div className={classes.colMain}></div>
-          <div className={classes.colSecondary}>Pts</div>
-          <div className={classes.colSecondary}>GP</div>
-          <div className={classes.colSecondary}>W</div>
-          <div className={classes.colSecondary}>D</div>
-          <div className={classes.colSecondary}>L</div>
-        </div>
-        {typesValue.map((value) => {
-          return (
-            <div className={classes.cardHeading}>
-              <div className={classes.colMain}>{value.name}</div>
-              <div className={classes.colSecondary}>{value.pts}</div>
-              <div className={classes.colSecondary}>{value.gp}</div>
-              <div className={classes.colSecondary}>{value.w}</div>
-              <div className={classes.colSecondary}>{value.d}</div>
-              <div className={classes.colSecondary}>{value.l}</div>
-            </div>
-          );
-        })}
-      </div>
+      {data.map((value) => {
+        return <div className={classes.compCard}>{value}</div>;
+      })}
     </>
   );
 }
@@ -185,109 +176,13 @@ const types = [
   "Info",
 ];
 
-const typesValue = [
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
-  {
-    name: "Portland Thorns",
-    pts: "0",
-    gp: "0",
-    w: "0",
-    d: "0",
-    l: "0",
-  },
+const data = [
+  "Is Trinity Rodman over paid?",
+  "Is Trinity Rodman over paid?",
+  "Is Trinity Rodman over paid?",
+  "Is Trinity Rodman over paid?",
+  "Is Trinity Rodman over paid?",
+  "Is Trinity Rodman over paid?",
+  "Is Trinity Rodman over paid?",
+  "Is Trinity Rodman over paid?",
 ];

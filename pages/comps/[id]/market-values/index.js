@@ -6,10 +6,16 @@ import { makeStyles } from "@mui/styles";
 import StarIcon from "@mui/icons-material/Star";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { competitionsData } from "../../../../../../../DummyData/competitions";
+import { competitionsData } from "../../../../DummyData/competitions";
 
 const useStyles = makeStyles(() => {
   return {
+    activeHeading: {
+      fontSize: "20px",
+      fontFamily: "Montserrat",
+      color: "#40E9D2",
+      marginBottom: "10px",
+    },
     card: {
       width: "100%",
       height: "85px",
@@ -41,17 +47,20 @@ const useStyles = makeStyles(() => {
       fontSize: "16px",
       fontFamily: "Montserrat",
     },
-    chevron: {
-      color: "white",
-    },
-    selection: {
+    allTypes: {
       display: "flex",
-      justifyContent: "center",
+      flexWrap: "wrap",
       alignItems: "center",
+    },
+    type: {
+      margin: "10px 0px",
+      color: "rgba(64, 233, 210, 0.5)",
       fontSize: "16px",
       fontFamily: "Montserrat",
-      color: "rgba(64, 233, 210, 0.5)",
-      marginBottom: "10px",
+      paddingRight: "10px",
+    },
+    chevron: {
+      color: "white",
     },
     standingsCard: {
       width: "100%",
@@ -61,7 +70,7 @@ const useStyles = makeStyles(() => {
     },
     compCard: {
       width: "100%",
-      height: "85px",
+      height: "64px",
       borderRadius: "10px",
       backgroundColor: "rgba(233,64,87,0.75)",
       marginBottom: "10px",
@@ -70,28 +79,15 @@ const useStyles = makeStyles(() => {
       justifyContent: "space-between",
       alignItems: "center",
     },
+    isFavorite: {
+      color: "#40E9D2",
+    },
     teamName: {
       fontSize: "15px",
       fontFamily: "Montserrat",
       color: "white",
-      paddingLeft: "10px",
-      paddingRight: "10px",
-    },
-    verses: {
-      fontSize: "16px",
-      fontFamily: "Montserrat",
-      color: "white",
-      paddingLeft: "10px",
-      paddingRight: "10px",
-    },
-    content: {
-      fontSize: "14px",
-      fontFamily: "Montserrat",
-      color: "white",
-      padding: "30px 50px",
-      width: "100%",
-      borderRadius: "10px",
-      backgroundColor: "rgba(233,64,87,0.75)",
+      paddingLeft: "15px",
+      paddingRight: "15px",
     },
   };
 });
@@ -99,10 +95,10 @@ const useStyles = makeStyles(() => {
 export default function Competitions() {
   const classes = useStyles();
   const {
-    query: { id: competitionID, teamName },
+    query: { id: competitionID },
   } = useRouter();
 
-  const competitionType = "Teams";
+  const competitionType = "Market Values";
 
   const { data: allCompData } = useQuery("competitions", () => {
     return competitionsData;
@@ -129,7 +125,6 @@ export default function Competitions() {
         </Link>
         <span className={classes.breadcrumbs}>{initials}</span>
         <span className={classes.breadcrumbs}>{competitionType}</span>
-        <span className={classes.breadcrumbs}>{teamName}</span>
       </Breadcrumbs>
       <div className={classes.card}>
         <Image src="/images/t2.svg" alt="comp logo" width="65" height="55" />
@@ -138,32 +133,55 @@ export default function Competitions() {
           className={compData.isFavorite ? classes.isFavorite : classes.star}
         />
       </div>
-      <div className={classes.card}>
-        <Image src="/images/s1.svg" alt="comp logo" width="30" height="42" />
-        <div className={classes.name}>{teamName}</div>
-        <StarIcon
-          className={compData.isFavorite ? classes.isFavorite : classes.star}
-        />
+      <div className={classes.allTypes}>
+        {types.map((value) => {
+          const link =
+            `/comps/${competitionID}/${value?.toLowerCase()}`.replace(" ", "-");
+
+          return (
+            <Link href={link}>
+              <div
+                style={
+                  competitionType?.toUpperCase() === value?.toUpperCase()
+                    ? { color: "#40E9D2" }
+                    : {}
+                }
+                className={classes.type}
+              >
+                {value}
+              </div>
+            </Link>
+          );
+        })}
       </div>
-      <div className={classes.selection}>
-        <div style={{ color: "#40E9D2", padding: "0px 30px" }}>
-          Match Details
-        </div>
-      </div>
-      <div className={classes.compCard}>
-        <div className={classes.teamName}>
-          <div style={{ marginBottom: "5px" }}>LOGO</div>
-          <div>{data.teamA}</div>
-        </div>
-        <div className={classes.verses}>VS</div>
-        <div className={classes.teamName}>
-          <div style={{ marginBottom: "5px" }}>LOGO</div>
-          <div>{data.teamB}</div>
-        </div>
-      </div>
-      <div className={classes.content}>
-        Match Info - pull from the data that I have access too
-      </div>
+      {data.map((value) => {
+        return (
+          <Link
+            href={{
+              pathname: "/comps/[id]/player/[playerID]",
+              query: {
+                id: compData.competition_id,
+                playerID: value.id,
+                playerName: value.name,
+              },
+            }}
+          >
+            <div className={classes.compCard} key={value.competition_id}>
+              <Image
+                src="/images/t1.svg"
+                alt="comp logo"
+                width="48"
+                height="48"
+              />
+              <div className={classes.teamName}>{value.name}</div>
+              <div className={classes.teamName}>{`$${value.amount}K`}</div>
+              <StarIcon
+                className={value.isFavorite ? classes.isFavorite : classes.star}
+              />
+            </div>
+          </Link>
+        );
+      })}
     </>
   );
 }
@@ -180,7 +198,36 @@ const types = [
   "Info",
 ];
 
-const data = {
-  teamA: "Angel City",
-  teamB: "Louis",
-};
+const data = [
+  {
+    name: "Andrea Benton Portland Thorns",
+    isFavorite: true,
+    amount: "100",
+    id: 1,
+  },
+  {
+    name: "Andrea Benton Portland Thorns",
+    amount: "100",
+    id: 2,
+  },
+  {
+    name: "Andrea Benton Portland Thorns",
+    amount: "100",
+    id: 3,
+  },
+  {
+    name: "Andrea Benton Portland Thorns",
+    amount: "100",
+    id: 4,
+  },
+  {
+    name: "Andrea Benton Portland Thorns",
+    amount: "100",
+    id: 5,
+  },
+  {
+    name: "Andrea Benton Portland Thorns",
+    amount: "100",
+    id: 6,
+  },
+];

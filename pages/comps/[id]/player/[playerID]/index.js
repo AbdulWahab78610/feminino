@@ -5,17 +5,13 @@ import { useQuery } from "react-query";
 import { makeStyles } from "@mui/styles";
 import StarIcon from "@mui/icons-material/Star";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { competitionsData } from "../../../../DummyData/competitions";
+import { competitionsData } from "../../../../../DummyData/competitions";
 
 const useStyles = makeStyles(() => {
   return {
-    activeHeading: {
-      fontSize: "20px",
-      fontFamily: "Montserrat",
-      color: "#40E9D2",
-      marginBottom: "10px",
-    },
     card: {
       width: "100%",
       height: "85px",
@@ -23,6 +19,9 @@ const useStyles = makeStyles(() => {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
+      "& :first-child": {
+        flexShrink: "0",
+      },
     },
     star: {
       color: "white",
@@ -50,44 +49,48 @@ const useStyles = makeStyles(() => {
     chevron: {
       color: "white",
     },
-    allTypes: {
-      display: "flex",
-      flexWrap: "wrap",
-      alignItems: "center",
-    },
-    type: {
-      margin: "10px 0px",
-      color: "rgba(64, 233, 210, 0.5)",
-      fontSize: "16px",
-      fontFamily: "Montserrat",
-      paddingRight: "10px",
-    },
-    standingsCard: {
-      width: "100%",
-      borderRadius: "10px",
-      backgroundColor: "rgba(233,64,87,0.75)",
-      padding: "10px 5px",
-    },
-    Compcard: {
-      width: "100%",
-      height: "64px",
-      borderRadius: "10px",
-      backgroundColor: "rgba(233,64,87,0.75)",
-      marginBottom: "10px",
-      display: "flex",
-      padding: "10px 20px",
-      justifyContent: "space-between",
-      alignItems: "center",
-    },
-    isFavorite: {
+    selectedThumb: {
       color: "#40E9D2",
     },
-    teamName: {
-      fontSize: "15px",
+    selection: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      fontSize: "16px",
+      fontFamily: "Montserrat",
+      color: "rgba(64, 233, 210, 0.5)",
+      marginBottom: "10px",
+    },
+    content: {
+      fontSize: "14px",
       fontFamily: "Montserrat",
       color: "white",
-      paddingLeft: "20px",
-      paddingRight: "20px",
+      padding: "20px 20px",
+      width: "100%",
+      borderRadius: "10px",
+      backgroundColor: "rgba(233,64,87,0.75)",
+    },
+    info: {
+      display: "flex",
+      marginBottom: "120px",
+      fontSize: "18px",
+    },
+    logos: {
+      display: "flex",
+      flexDirection: "column",
+      marginRight: "30px",
+      "& div": {
+        marginBottom: "20px",
+        flexShrink: "0",
+      },
+    },
+    playerInfo: {
+      "& div": {
+        marginBottom: "20px",
+      },
+    },
+    stat: {
+      textAlign: "center",
     },
   };
 });
@@ -95,7 +98,7 @@ const useStyles = makeStyles(() => {
 export default function Competitions() {
   const classes = useStyles();
   const {
-    query: { id: competitionID },
+    query: { id: competitionID, teamName, playerName },
   } = useRouter();
 
   const competitionType = "Teams";
@@ -118,68 +121,64 @@ export default function Competitions() {
             classes={{ root: classes.chevron }}
           ></ChevronRightIcon>
         }
+        maxItems={3}
       >
         <Link href="/comps">
           <span className={classes.breadcrumbsMain}>COMPS</span>
         </Link>
         <span className={classes.breadcrumbs}>{initials}</span>
         <span className={classes.breadcrumbs}>{competitionType}</span>
+        <span className={classes.breadcrumbs}>{teamName}</span>
       </Breadcrumbs>
       <div className={classes.card}>
-        <Image src="/images/t2.svg" alt="comp logo" width="65" height="65" />
-        <div className={classes.name}>{compData.name}</div>
+        <Image src="/images/t1.svg" alt="comp logo" width="65" height="75" />
+        <div className={classes.name}>{playerName}</div>
         <StarIcon
           className={compData.isFavorite ? classes.isFavorite : classes.star}
         />
       </div>
-      <div className={classes.allTypes}>
-        {types.map((value) => {
-          const link =
-            `/comps/${competitionID}/${value?.toLowerCase()}`.replace(" ", "-");
-
-          return (
-            <Link href={link}>
-              <div
-                style={
-                  competitionType?.toUpperCase() === value?.toUpperCase()
-                    ? { color: "#40E9D2" }
-                    : {}
-                }
-                className={classes.type}
-              >
-                {value}
-              </div>
-            </Link>
-          );
-        })}
+      <div className={classes.selection}>
+        <div
+          style={{ color: "#40E9D2", padding: "0px 30px" }}
+        >{`MV: $${data.amount}K`}</div>
+        <div style={{ padding: "0px 10px" }}>
+          <ThumbUpIcon classes={{ root: classes.chevron }}></ThumbUpIcon>
+        </div>
+        <div style={{ padding: "0px 10px" }}>
+          <ThumbDownIcon
+            classes={{ root: classes.selectedThumb }}
+          ></ThumbDownIcon>
+        </div>
       </div>
-      {data.map((value) => {
-        return (
-          <Link
-            href={{
-              pathname: "/comps/[id]/teams/[teamID]/matches",
-              query: {
-                id: compData.competition_id,
-                teamID: value.id,
-                name: value.name,
-              },
-            }}
-          >
-            <div className={classes.Compcard} key={value.competition_id}>
+      <div className={classes.content}>
+        <div className={classes.info}>
+          <div className={classes.logos}>
+            <div>
+              <Image
+                src="/images/f1.svg"
+                alt="comp logo"
+                width="37"
+                height="18"
+              />
+            </div>
+            <div>
               <Image
                 src="/images/s1.svg"
                 alt="comp logo"
                 width="30"
                 height="42"
               />
-              <div className={classes.teamName}>{value.name}</div>
-              <StarIcon
-                className={value.isFavorite ? classes.isFavorite : classes.star}
-              />
             </div>
-          </Link>
-        );
-      })}
+          </div>
+          <div className={classes.playerInfo}>
+            <div>{`Position: ${data.position}`}</div>
+            <div>{`Foot: ${data.foot}`}</div>
+            <div>{`SM: ${data.sm}`}</div>
+            <div>{`TikTok: ${data.tiktok}`}</div>
+          </div>
+        </div>
+        <div className={classes.stat}>Stats from data - if available</div>
+      </div>
     </>
   );
 }
@@ -196,34 +195,10 @@ const types = [
   "Info",
 ];
 
-const data = [
-  {
-    name: "Angel City FC",
-    isFavorite: true,
-    id: 1,
-  },
-  {
-    name: "Angel City FC",
-    id: 2,
-  },
-  {
-    name: "Angel City FC",
-    id: 3,
-  },
-  {
-    name: "Angel City FC",
-    id: 4,
-  },
-  {
-    name: "Angel City FC",
-    id: 5,
-  },
-  {
-    name: "Angel City FC",
-    id: 6,
-  },
-  {
-    name: "Angel City FC",
-    id: 7,
-  },
-];
+const data = {
+  amount: "300",
+  position: "Striker",
+  foot: "Right Foot",
+  sm: "IG",
+  tiktok: "",
+};

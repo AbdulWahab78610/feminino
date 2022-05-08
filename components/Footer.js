@@ -47,7 +47,11 @@ export default function Footer() {
         <Link href="/">
           <div className={classes.navigation}>
             <Image
-              src="/images/footerIcon1.svg"
+              src={
+                pathname === "/"
+                  ? "/images/footerIconS1.svg"
+                  : "/images/footerIcon1.svg"
+              }
               alt="footerIcon1"
               width="12px"
               height="22px"
@@ -64,14 +68,18 @@ export default function Footer() {
         <Link href="/scores">
           <div className={classes.navigation}>
             <Image
-              src="/images/footerIcon2.svg"
+              src={
+                pathname.indexOf("/scores") > -1
+                  ? "/images/footerIconS2.svg"
+                  : "/images/footerIcon2.svg"
+              }
               alt="footerIcon2"
               width="24px"
               height="22px"
             ></Image>
             <div
               className={
-                pathname === "/scores"
+                pathname.indexOf("/scores") > -1
                   ? classes.headingSelected
                   : classes.heading
               }
@@ -83,14 +91,20 @@ export default function Footer() {
         <Link href="/favs">
           <div className={classes.navigation}>
             <Image
-              src="/images/footerIcon3.svg"
+              src={
+                pathname.indexOf("/favs") > -1
+                  ? "/images/footerIconS3.svg"
+                  : "/images/footerIcon3.svg"
+              }
               alt="footerIcon3"
               width="23px"
               height="20px"
             ></Image>
             <div
               className={
-                pathname === "/favs" ? classes.headingSelected : classes.heading
+                pathname.indexOf("/favs") > -1
+                  ? classes.headingSelected
+                  : classes.heading
               }
             >
               Favs
@@ -100,14 +114,18 @@ export default function Footer() {
         <Link href="/comps">
           <div className={classes.navigation}>
             <Image
-              src="/images/footerIcon4.svg"
+              src={
+                pathname.indexOf("/comps") > -1
+                  ? "/images/footerIconS4.svg"
+                  : "/images/footerIcon4.svg"
+              }
               alt="footerIcon4"
               width="25px"
               height="20px"
             ></Image>
             <div
               className={
-                pathname === "/comps"
+                pathname.indexOf("/comps") > -1
                   ? classes.headingSelected
                   : classes.heading
               }
@@ -119,14 +137,20 @@ export default function Footer() {
         <Link href="/news">
           <div className={classes.navigation}>
             <Image
-              src="/images/footerIcon5.svg"
+              src={
+                pathname.indexOf("/news") > -1
+                  ? "/images/footerIconS5.svg"
+                  : "/images/footerIcon5.svg"
+              }
               alt="footerIcon5"
               width="25px"
               height="15px"
             ></Image>
             <div
               className={
-                pathname === "/news" ? classes.headingSelected : classes.heading
+                pathname.indexOf("/news") > -1
+                  ? classes.headingSelected
+                  : classes.heading
               }
             >
               News

@@ -6,16 +6,10 @@ import { makeStyles } from "@mui/styles";
 import StarIcon from "@mui/icons-material/Star";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { competitionsData } from "../../../../../../DummyData/competitions";
+import { competitionsData } from "../../../../../DummyData/competitions";
 
 const useStyles = makeStyles(() => {
   return {
-    activeHeading: {
-      fontSize: "20px",
-      fontFamily: "Montserrat",
-      color: "#40E9D2",
-      marginBottom: "10px",
-    },
     card: {
       width: "100%",
       height: "85px",
@@ -67,7 +61,7 @@ const useStyles = makeStyles(() => {
     },
     compCard: {
       width: "100%",
-      height: "64px",
+      height: "85px",
       borderRadius: "10px",
       backgroundColor: "rgba(233,64,87,0.75)",
       marginBottom: "10px",
@@ -76,9 +70,6 @@ const useStyles = makeStyles(() => {
       justifyContent: "space-between",
       alignItems: "center",
     },
-    isFavorite: {
-      color: "#40E9D2",
-    },
     teamName: {
       fontSize: "15px",
       fontFamily: "Montserrat",
@@ -86,13 +77,29 @@ const useStyles = makeStyles(() => {
       paddingLeft: "10px",
       paddingRight: "10px",
     },
+    verses: {
+      fontSize: "16px",
+      fontFamily: "Montserrat",
+      color: "white",
+      paddingLeft: "10px",
+      paddingRight: "10px",
+    },
+    content: {
+      fontSize: "14px",
+      fontFamily: "Montserrat",
+      color: "white",
+      padding: "30px 50px",
+      width: "100%",
+      borderRadius: "10px",
+      backgroundColor: "rgba(233,64,87,0.75)",
+    },
   };
 });
 
 export default function Competitions() {
   const classes = useStyles();
   const {
-    query: { id: competitionID, name: teamName, teamID },
+    query: { id: competitionID, teamName, showTeam },
   } = useRouter();
 
   const competitionType = "Teams";
@@ -131,51 +138,34 @@ export default function Competitions() {
           className={compData.isFavorite ? classes.isFavorite : classes.star}
         />
       </div>
-      <div className={classes.card}>
-        <Image src="/images/s1.svg" alt="comp logo" width="30" height="42" />
-        <div className={classes.name}>{teamName}</div>
-        <StarIcon
-          className={compData.isFavorite ? classes.isFavorite : classes.star}
-        />
-      </div>
+      {showTeam !== "false" && (
+        <div className={classes.card}>
+          <Image src="/images/s1.svg" alt="comp logo" width="30" height="42" />
+          <div className={classes.name}>{teamName}</div>
+          <StarIcon
+            className={compData.isFavorite ? classes.isFavorite : classes.star}
+          />
+        </div>
+      )}
       <div className={classes.selection}>
-        <div style={{ color: "#40E9D2", padding: "0px 30px" }}>Matches</div>
-        <Link
-          href={{
-            pathname: "/comps/[id]/teams/[teamID]/roaster",
-            query: {
-              id: compData.competition_id,
-              teamID,
-              teamName,
-            },
-          }}
-        >
-          <div style={{ padding: "0px 30px" }}>Roaster</div>
-        </Link>
+        <div style={{ color: "#40E9D2", padding: "0px 30px" }}>
+          Match Details
+        </div>
       </div>
-      {data.map((value) => {
-        return (
-          <Link
-            href={{
-              pathname: "/comps/[id]/match/[matchID]",
-              query: {
-                id: compData.competition_id,
-                matchID: value.id,
-                teamName: teamName,
-              },
-            }}
-          >
-            <div className={classes.compCard} key={value.competition_id}>
-              <div className={classes.teamName}>{value.date}</div>
-              <div className={classes.teamName}>{value.name}</div>
-              <div className={classes.teamName}>{value.score}</div>
-              <StarIcon
-                className={value.isFavorite ? classes.isFavorite : classes.star}
-              />
-            </div>
-          </Link>
-        );
-      })}
+      <div className={classes.compCard}>
+        <div className={classes.teamName}>
+          <div style={{ marginBottom: "5px" }}>LOGO</div>
+          <div>{data.teamA}</div>
+        </div>
+        <div className={classes.verses}>VS</div>
+        <div className={classes.teamName}>
+          <div style={{ marginBottom: "5px" }}>LOGO</div>
+          <div>{data.teamB}</div>
+        </div>
+      </div>
+      <div className={classes.content}>
+        Match Info - pull from the data that I have access too
+      </div>
     </>
   );
 }
@@ -192,42 +182,7 @@ const types = [
   "Info",
 ];
 
-const data = [
-  {
-    name: "NYC Gotham Portland Thorns",
-    isFavorite: true,
-    score: "score",
-    date: "Date",
-    id: 1,
-  },
-  {
-    name: "NYC Gotham Portland Thorns",
-    score: "score",
-    date: "Date",
-    id: 2,
-  },
-  {
-    name: "NYC Gotham Portland Thorns",
-    score: "score",
-    date: "Date",
-    id: 3,
-  },
-  {
-    name: "NYC Gotham Portland Thorns",
-    score: "score",
-    date: "Date",
-    id: 4,
-  },
-  {
-    name: "NYC Gotham Portland Thorns",
-    score: "score",
-    date: "Date",
-    id: 5,
-  },
-  {
-    name: "NYC Gotham Portland Thorns",
-    score: "score",
-    date: "Date",
-    id: 6,
-  },
-];
+const data = {
+  teamA: "Angel City",
+  teamB: "Louis",
+};

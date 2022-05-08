@@ -157,11 +157,11 @@ export default function Competitions() {
         return (
           <Link
             href={{
-              pathname: "/comps/[id]/teams/[teamID]/roaster/[playerID]",
+              pathname: "/comps/[id]/player/[playerID]",
               query: {
                 id: compData.competition_id,
-                teamID: value.id,
                 playerID: value.id,
+                playerName: value.name,
                 teamName,
               },
             }}
