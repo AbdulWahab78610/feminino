@@ -70,10 +70,10 @@ function MyApp({ Component, pageProps }) {
       const mainConatinerHeight = mainContainerRef?.current?.clientHeight;
       const childConatinerHeight = childContainerRef?.current?.clientHeight;
 
-      if (mainConatinerHeight > childConatinerHeight) {
+      if (mainConatinerHeight - 64 > childConatinerHeight) {
         setIsVisible(false);
       }
-    }, 0);
+    }, 500);
   }, [pageProps]);
 
   const classes = useStyles();
