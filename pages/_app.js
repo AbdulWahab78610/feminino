@@ -75,11 +75,10 @@ function MyApp({ Component, pageProps }) {
       element?.scrollHeight - element?.scrollTop === element?.clientHeight;
 
     alert(
-      "bottom",
-      bottom,
-      element?.scrollHeight,
-      element?.scrollTop,
-      element?.clientHeight
+      `bottom ${bottom},${element?.scrollHeight},
+        ${element?.scrollTop},
+        ${element?.clientHeight}
+      }`
     );
 
     if (bottom) {
