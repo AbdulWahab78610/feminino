@@ -58,26 +58,22 @@ const muiTheme = createTheme({
 });
 
 function MyApp({ Component, pageProps }) {
+  const [isVisible, setIsVisible] = React.useState(true);
   const classes = useStyles();
 
-  React.useEffect(() => {
-    const element = document.getElementById("scroll-div");
+  const memoizedComponent = React.useMemo(
+    () => <Component {...pageProps} />,
+    [pageProps]
+  );
 
-    element.addEventListener("scroll", handleScroll);
-    return () => element.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleScroll = () => {
-    const element = document.getElementById("scroll-div");
-    const scrollButton = document.getElementById("the-scroll-button");
-
+  const handleScroll = ({ target: element }) => {
     const bottom =
       element?.scrollHeight - element?.scrollTop === element?.clientHeight;
 
     if (bottom) {
-      scrollButton.style.display = "none";
+      setIsVisible(false);
     } else {
-      scrollButton.style.display = "block";
+      setIsVisible(true);
     }
   };
 
@@ -87,16 +83,22 @@ function MyApp({ Component, pageProps }) {
       <ThemeProvider theme={muiTheme}>
         <div className={classes.container}>
           <Header />
-          <div id="scroll-div" className={classes.mainContent}>
-            <div id="the-scroll-button" className={classes.scroll}>
-              <Image
-                src="/images/scroll.svg"
-                alt="scroll button"
-                width="16"
-                height="10"
-              />
-            </div>
-            <Component {...pageProps} />
+          <div
+            id="scroll-div"
+            className={classes.mainContent}
+            onScroll={handleScroll}
+          >
+            {isVisible && (
+              <div id="the-scroll-button" className={classes.scroll}>
+                <Image
+                  src="/images/scroll.svg"
+                  alt="scroll button"
+                  width="16"
+                  height="10"
+                />
+              </div>
+            )}
+            {memoizedComponent}
           </div>
           <Footer />
         </div>
