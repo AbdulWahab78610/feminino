@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => {
     mainContent: {
       width: "100%",
       height: "calc(100% - 64px)",
-      padding: "0px 10px 65px",
+      padding: "0px 12px 65px",
       overflow: "scroll",
       scrollbarWidth: "none" /* IE and Edge */,
       msOverflowStyle: "none" /* Firefox */,
@@ -43,8 +43,10 @@ const queryClient = new QueryClient({
 });
 
 const muiTheme = createTheme({
-  status: {
-    danger: orange[500],
+  breakpoints: {
+    values: {
+      breakTypes: 411,
+    },
   },
 });
 

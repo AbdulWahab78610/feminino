@@ -5,17 +5,11 @@ import Image from "next/image";
 // import { useQuery } from "react-query";
 import { makeStyles } from "@mui/styles";
 import StarIcon from "@mui/icons-material/Star";
-// import Slider from "react-slick";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-const settings = {
-  dots: false,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 3,
-};
 
 const useStyles = makeStyles(() => {
   return {
@@ -25,19 +19,25 @@ const useStyles = makeStyles(() => {
       color: "white",
       marginBottom: "10px",
     },
-    // will be changed once I have figured out the slider issue
+    headingNews: {
+      fontSize: "16px",
+      fontFamily: "Montserrat",
+      color: "white",
+      paddingTop: "5px",
+    },
     newsFeed: {
-      width: "100%",
-      height: "85px",
-      borderRadius: "10px",
-      backgroundColor: "rgba(233,64,87,0.75)",
       marginBottom: "10px",
+      height: "85px",
     },
     news: {
-      width: "102px !important",
+      width: "110px !important",
       height: "85px",
       borderRadius: "10px",
       backgroundColor: "rgba(233,64,87,0.75)",
+      display: "flex !important",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
     },
     ads: {
       width: "100%",
@@ -85,36 +85,62 @@ const useStyles = makeStyles(() => {
     isFavorite: {
       color: "#40E9D2",
     },
+    buttonLeft: {
+      color: "white",
+      position: "absolute",
+      top: "30px",
+      left: "-16px",
+    },
+    buttonRight: {
+      color: "white",
+      position: "absolute",
+      top: "30px",
+      right: "-16px",
+    },
   };
 });
 
 export default function Players() {
   const classes = useStyles();
 
+  const RightArrow = ({ onClick }) => {
+    return (
+      <ChevronRightIcon onClick={onClick} className={classes.buttonRight} />
+    );
+  };
+
+  const LeftArrow = ({ onClick }) => {
+    return <ChevronLeftIcon onClick={onClick} className={classes.buttonLeft} />;
+  };
+
+  const settings = {
+    dots: false,
+    Infinity: false,
+    speed: 200,
+    slidesToShow: 3,
+    nextArrow: <RightArrow />,
+    prevArrow: <LeftArrow />,
+  };
+
   return (
     <>
       <div className={classes.players}>
         <div className={classes.heading}>WHAT’S TRENDING</div>
         <div className={classes.newsFeed}>
-          {/* will be changed once I have figured out the slider issue */}
-          {/* <Slider {...settings}>
-            <div className={classes.news}>
-              <Image src="/images/t1.svg" alt="t1" width="60" height="47" />
-              <div className={classes.heading}>Players</div>
-            </div>
-            <div className={classes.news}>
-              <Image src="/images/t1.svg" alt="t1" width="60" height="47" />
-              <div className={classes.heading}>Players</div>
-            </div>
-            <div className={classes.news}>
-              <Image src="/images/t1.svg" alt="t1" width="60" height="47" />
-              <div className={classes.heading}>Players</div>
-            </div>
-          </Slider> */}
+          <Slider {...settings}>
+            {newsPlayer.map((value) => {
+              return (
+                <div className={classes.news}>
+                  <Image src="/images/t1.svg" alt="t1" width="60" height="47" />
+                  <div className={classes.headingNews}>{value}</div>
+                </div>
+              );
+            })}
+          </Slider>
         </div>
         <div className={classes.ads}>AD GOES HERE</div>
         <div className={classes.activeHeading}>PLAYERS</div>
-        {data.map((value, index) => {
+        {data.map((value) => {
           return (
             <>
               <Link
@@ -235,4 +261,13 @@ const data = [
     isFavorite: false,
     id: 9,
   },
+];
+
+const newsPlayer = [
+  "M. Leon",
+  "A.Benton",
+  "M. Leon",
+  "A.Benton",
+  "M. Leon",
+  "A.Benton",
 ];

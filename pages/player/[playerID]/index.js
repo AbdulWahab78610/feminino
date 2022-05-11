@@ -131,7 +131,10 @@ export default function Competitions() {
       </Breadcrumbs>
       <div className={classes.card}>
         <Image src="/images/t1.svg" alt="comp logo" width="65" height="75" />
-        <div className={classes.name}>{playerName}</div>
+        <div className={classes.name}>
+          <div>{playerName}</div>
+          <div>Angel City FC #21</div>
+        </div>
         <StarIcon
           className={compData.isFavorite ? classes.isFavorite : classes.star}
         />
@@ -181,18 +184,6 @@ export default function Competitions() {
     </>
   );
 }
-
-const types = [
-  "Standings",
-  "Teams",
-  "Matches",
-  "Top Goals",
-  "Top Assists",
-  "Top Defenders",
-  "Market Values",
-  "Rumours",
-  "Info",
-];
 
 const data = {
   amount: "300",
