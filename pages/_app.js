@@ -68,6 +68,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   const handleScroll = () => {
+    alert("hello");
     const element = document.getElementById("scroll-div");
     const scrollButton = document.getElementById("the-scroll-button");
 
