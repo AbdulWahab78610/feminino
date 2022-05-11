@@ -74,13 +74,6 @@ function MyApp({ Component, pageProps }) {
     const bottom =
       element?.scrollHeight - element?.scrollTop === element?.clientHeight;
 
-    alert(
-      `bottom ${bottom},${element?.scrollHeight},
-        ${element?.scrollTop},
-        ${element?.clientHeight}
-      }`
-    );
-
     if (bottom) {
       scrollButton.style.display = "none";
     } else {
