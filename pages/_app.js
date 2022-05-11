@@ -1,5 +1,6 @@
+import React from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { orange } from "@mui/material/colors";
+import Image from "next/image";
 import { makeStyles } from "@mui/styles";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -29,6 +30,12 @@ const useStyles = makeStyles(() => {
         display: "none" /* Hide scrollbar for Chrome, Safari and Opera */,
       },
     },
+    scroll: {
+      position: "absolute",
+      bottom: "60px",
+      right: "45%",
+      transform: "translateX(-50%)",
+    },
   };
 });
 
@@ -53,13 +60,42 @@ const muiTheme = createTheme({
 function MyApp({ Component, pageProps }) {
   const classes = useStyles();
 
+  React.useEffect(() => {
+    const element = document.getElementById("scroll-div");
+
+    element.addEventListener("scroll", handleScroll);
+    return () => element.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleScroll = () => {
+    const element = document.getElementById("scroll-div");
+    const scrollButton = document.getElementById("the-scroll-button");
+
+    const bottom =
+      element?.scrollHeight - element?.scrollTop === element?.clientHeight;
+
+    if (bottom) {
+      scrollButton.style.display = "none";
+    } else {
+      scrollButton.style.display = "block";
+    }
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-right" /> */}
       <ThemeProvider theme={muiTheme}>
         <div className={classes.container}>
           <Header />
-          <div className={classes.mainContent}>
+          <div id="scroll-div" className={classes.mainContent}>
+            <div id="the-scroll-button" className={classes.scroll}>
+              <Image
+                src="/images/scroll.svg"
+                alt="scroll button"
+                width="16"
+                height="10"
+              />
+            </div>
             <Component {...pageProps} />
           </div>
           <Footer />
