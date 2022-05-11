@@ -206,8 +206,8 @@ export default function Players() {
                   <Image
                     src={value.image}
                     alt={value.image}
-                    width="33"
-                    height="50"
+                    width="65"
+                    height="65"
                   />
                   <div className="stat">
                     <div className={classes.name}>{value.name}</div>
@@ -216,8 +216,8 @@ export default function Players() {
                   <Image
                     src={value.leagueImage}
                     alt="t2"
-                    width="43"
-                    height="43"
+                    width="33"
+                    height="50"
                   />
                   <StarIcon
                     className={
@@ -273,34 +273,34 @@ const strikersData = [
 
 const prospectsData = [
   {
-    image: "/images/p1.svg",
+    image: "/images/t1.svg",
     name: "Mapi Leon",
     info: "Prospect",
-    leagueImage: "/images/t2.svg",
+    leagueImage: "/images/p1.svg",
     isFavorite: true,
     id: 1,
   },
   {
-    image: "/images/p1.svg",
+    image: "/images/t1.svg",
     name: "Mapi Leon",
     info: "Prospect",
-    leagueImage: "/images/t2.svg",
+    leagueImage: "/images/p1.svg",
     isFavorite: false,
     id: 2,
   },
   {
-    image: "/images/p1.svg",
+    image: "/images/t1.svg",
     name: "Mapi Leon",
     info: "Prospect",
-    leagueImage: "/images/t2.svg",
+    leagueImage: "/images/p1.svg",
     isFavorite: false,
     id: 3,
   },
   {
-    image: "/images/p1.svg",
+    image: "/images/t1.svg",
     name: "Mapi Leon",
     info: "Prospect",
-    leagueImage: "/images/t2.svg",
+    leagueImage: "/images/p1.svg",
     isFavorite: false,
     id: 4,
   },
