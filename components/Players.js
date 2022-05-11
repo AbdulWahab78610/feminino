@@ -55,7 +55,7 @@ const useStyles = makeStyles(() => {
     activeHeading: {
       fontSize: "20px",
       fontFamily: "Montserrat",
-      color: "#40E9D2",
+      color: "white",
       marginBottom: "10px",
     },
     playerCard: {
@@ -139,8 +139,11 @@ export default function Players() {
           </Slider>
         </div>
         <div className={classes.ads}>AD GOES HERE</div>
-        <div className={classes.activeHeading}>PLAYERS</div>
-        {data.map((value) => {
+        <div className={classes.activeHeading}>
+          <span style={{ color: "#40E9D2" }}>PLAYERS</span>
+          {` > Strikers`}
+        </div>
+        {strikersData.map((value) => {
           return (
             <>
               <Link
@@ -150,7 +153,7 @@ export default function Players() {
                     id: value.id,
                     playerID: value.id,
                     playerName: value.name,
-                    playerType: "Striker",
+                    playerType: "Strikers",
                   },
                 }}
               >
@@ -181,6 +184,51 @@ export default function Players() {
             </>
           );
         })}
+        <div className={classes.activeHeading}>
+          <span style={{ color: "#40E9D2" }}>PLAYERS</span>
+          {` > Prospects`}
+        </div>
+        {prospectsData.map((value) => {
+          return (
+            <>
+              <Link
+                href={{
+                  pathname: "/player/[playerID]",
+                  query: {
+                    id: value.id,
+                    playerID: value.id,
+                    playerName: value.name,
+                    playerType: "Prospects",
+                  },
+                }}
+              >
+                <div className={classes.playerCard}>
+                  <Image
+                    src={value.image}
+                    alt={value.image}
+                    width="33"
+                    height="50"
+                  />
+                  <div className="stat">
+                    <div className={classes.name}>{value.name}</div>
+                    <div className={classes.info}>{value.info}</div>
+                  </div>
+                  <Image
+                    src={value.leagueImage}
+                    alt="t2"
+                    width="43"
+                    height="43"
+                  />
+                  <StarIcon
+                    className={
+                      value.isFavorite ? classes.isFavorite : classes.star
+                    }
+                  />
+                </div>
+              </Link>
+            </>
+          );
+        })}
       </div>
     </>
   );
@@ -188,11 +236,11 @@ export default function Players() {
 
 // Dummy DATA to be deleted
 
-const data = [
+const strikersData = [
   {
     image: "/images/t1.svg",
     name: "Mapi Leon",
-    info: "Prospect",
+    info: "MV: $300K",
     leagueImage: "/images/t2.svg",
     isFavorite: true,
     id: 1,
@@ -200,7 +248,7 @@ const data = [
   {
     image: "/images/t1.svg",
     name: "Mapi Leon",
-    info: "Prospect",
+    info: "MV: $300K",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
     id: 2,
@@ -208,7 +256,7 @@ const data = [
   {
     image: "/images/t1.svg",
     name: "Mapi Leon",
-    info: "Prospect",
+    info: "MV: $300K",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
     id: 3,
@@ -216,50 +264,45 @@ const data = [
   {
     image: "/images/t1.svg",
     name: "Mapi Leon",
-    info: "Prospect",
+    info: "MV: $300K",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
     id: 4,
   },
+];
+
+const prospectsData = [
   {
-    image: "/images/t1.svg",
+    image: "/images/p1.svg",
     name: "Mapi Leon",
     info: "Prospect",
     leagueImage: "/images/t2.svg",
-    isFavorite: false,
-    id: 5,
+    isFavorite: true,
+    id: 1,
   },
   {
-    image: "/images/t1.svg",
+    image: "/images/p1.svg",
     name: "Mapi Leon",
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
-    id: 6,
+    id: 2,
   },
   {
-    image: "/images/t1.svg",
+    image: "/images/p1.svg",
     name: "Mapi Leon",
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
-    id: 7,
+    id: 3,
   },
   {
-    image: "/images/t1.svg",
+    image: "/images/p1.svg",
     name: "Mapi Leon",
     info: "Prospect",
     leagueImage: "/images/t2.svg",
     isFavorite: false,
-    id: 8,
-  },
-  {
-    image: "/images/t1.svg",
-    name: "Mapi Leon",
-    info: "Prospect",
-    leagueImage: "/images/t2.svg",
-    isFavorite: false,
-    id: 9,
+    id: 4,
   },
 ];
 

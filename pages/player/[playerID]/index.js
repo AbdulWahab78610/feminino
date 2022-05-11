@@ -126,6 +126,7 @@ export default function Competitions() {
         <Link href="/">
           <span className={classes.breadcrumbsMain}>PLAYERS</span>
         </Link>
+        <span className={classes.breadcrumbs}>{playerType}</span>
         <span className={classes.breadcrumbs}>{playerName}</span>
       </Breadcrumbs>
       <div className={classes.card}>
