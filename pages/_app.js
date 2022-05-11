@@ -68,12 +68,19 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   const handleScroll = () => {
-    alert("hello");
     const element = document.getElementById("scroll-div");
     const scrollButton = document.getElementById("the-scroll-button");
 
     const bottom =
       element?.scrollHeight - element?.scrollTop === element?.clientHeight;
+
+    alert(
+      "bottom",
+      bottom,
+      element?.scrollHeight,
+      element?.scrollTop,
+      element?.clientHeight
+    );
 
     if (bottom) {
       scrollButton.style.display = "none";
