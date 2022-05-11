@@ -59,6 +59,23 @@ const muiTheme = createTheme({
 
 function MyApp({ Component, pageProps }) {
   const [isVisible, setIsVisible] = React.useState(true);
+
+  const mainContainerRef = React.useRef();
+  const childContainerRef = React.useRef();
+
+  React.useEffect(() => {
+    setIsVisible(true);
+
+    setTimeout(() => {
+      const mainConatinerHeight = mainContainerRef?.current?.clientHeight;
+      const childConatinerHeight = childContainerRef?.current?.clientHeight;
+
+      if (mainConatinerHeight > childConatinerHeight) {
+        setIsVisible(false);
+      }
+    }, 0);
+  }, [pageProps]);
+
   const classes = useStyles();
 
   const memoizedComponent = React.useMemo(
@@ -84,6 +101,7 @@ function MyApp({ Component, pageProps }) {
         <div className={classes.container}>
           <Header />
           <div
+            ref={mainContainerRef}
             id="scroll-div"
             className={classes.mainContent}
             onScroll={handleScroll}
@@ -98,7 +116,9 @@ function MyApp({ Component, pageProps }) {
                 />
               </div>
             )}
-            {memoizedComponent}
+            <div ref={childContainerRef} style={{ width: "100%" }}>
+              {memoizedComponent}
+            </div>
           </div>
           <Footer />
         </div>
