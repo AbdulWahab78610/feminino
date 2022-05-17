@@ -156,18 +156,6 @@ export default function Competitions() {
   );
 }
 
-const types = [
-  "Standings",
-  "Teams",
-  "Matches",
-  "Top Goals",
-  "Top Assists",
-  "Top Defenders",
-  "Market Values",
-  "Rumours",
-  "Info",
-];
-
 const data = {
   teamA: "Angel City",
   teamB: "Louis",

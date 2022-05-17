@@ -122,7 +122,7 @@ export default function Favs() {
             </>
           );
         })}
-        <div className={classes.heading}>My leagues</div>
+        <div className={classes.heading}>My Leagues</div>
         {data.players.map((value, index) => {
           return (
             <>

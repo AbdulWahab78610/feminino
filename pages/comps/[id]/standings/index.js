@@ -8,7 +8,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { competitionsData } from "../../../../DummyData/competitions";
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
   return {
     activeHeading: {
       fontSize: "20px",
@@ -54,13 +54,35 @@ const useStyles = makeStyles(() => {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
+      justifyContent: "space-evenly",
     },
     type: {
       margin: "10px 0px",
       color: "rgba(64, 233, 210, 0.5)",
       fontSize: "16px",
       fontFamily: "Montserrat",
-      paddingRight: "10px",
+      padding: "0px 6px",
+      [theme.breakpoints.up(363)]: {
+        padding: "0px 7px",
+      },
+      [theme.breakpoints.up(369)]: {
+        padding: "0px 8px",
+      },
+      [theme.breakpoints.up(375)]: {
+        padding: "0px 9px",
+      },
+      [theme.breakpoints.up(381)]: {
+        padding: "0px 10px",
+      },
+      [theme.breakpoints.up(393)]: {
+        padding: "0px 12px",
+      },
+      [theme.breakpoints.up(411)]: {
+        padding: "0px 15px",
+      },
+      [theme.breakpoints.up(435)]: {
+        padding: "0px 18px",
+      },
     },
     standingsCard: {
       width: "100%",
@@ -129,7 +151,15 @@ export default function Competitions() {
       <div className={classes.allTypes}>
         {types.map((value) => {
           const link =
-            `/comps/${competitionID}/${value?.toLowerCase()}`.replace(" ", "-");
+            value !== "News/Rumours"
+              ? `/comps/${competitionID}/${value?.toLowerCase()}`.replace(
+                  " ",
+                  "-"
+                )
+              : `/comps/${competitionID}/${"Rumours"?.toLowerCase()}`.replace(
+                  " ",
+                  "-"
+                );
 
           return (
             <Link href={link}>
@@ -181,7 +211,7 @@ const types = [
   "Top Assists",
   "Top Defenders",
   "Market Values",
-  "Rumours",
+  "News/Rumours",
   "Info",
 ];
 

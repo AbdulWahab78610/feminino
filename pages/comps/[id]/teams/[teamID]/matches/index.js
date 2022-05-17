@@ -150,7 +150,7 @@ export default function Competitions() {
             },
           }}
         >
-          <div style={{ padding: "0px 30px" }}>Roaster</div>
+          <div style={{ padding: "0px 30px" }}>Roster</div>
         </Link>
       </div>
       {data.map((value) => {
@@ -179,18 +179,6 @@ export default function Competitions() {
     </>
   );
 }
-
-const types = [
-  "Standings",
-  "Teams",
-  "Matches",
-  "Top Goals",
-  "Top Assists",
-  "Top Defenders",
-  "Market Values",
-  "Rumours",
-  "Info",
-];
 
 const data = [
   {

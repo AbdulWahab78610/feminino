@@ -151,7 +151,7 @@ export default function Competitions() {
         >
           <div style={{ padding: "0px 30px" }}>Matches</div>
         </Link>
-        <div style={{ color: "#40E9D2", padding: "0px 30px" }}>Roaster</div>
+        <div style={{ color: "#40E9D2", padding: "0px 30px" }}>Roster</div>
       </div>
       {data.map((value) => {
         return (
@@ -186,47 +186,35 @@ export default function Competitions() {
   );
 }
 
-const types = [
-  "Standings",
-  "Teams",
-  "Matches",
-  "Top Goals",
-  "Top Assists",
-  "Top Defenders",
-  "Market Values",
-  "Rumours",
-  "Info",
-];
-
 const data = [
   {
-    name: "Andrea Benton Portland Thorns",
+    name: "Andrea Benton",
     isFavorite: true,
     score: "23",
     id: 1,
   },
   {
-    name: "Andrea Benton Portland Thorns",
+    name: "Andrea Benton",
     score: "23",
     id: 2,
   },
   {
-    name: "Andrea Benton Portland Thorns",
+    name: "Andrea Benton",
     score: "23",
     id: 3,
   },
   {
-    name: "Andrea Benton Portland Thorns",
+    name: "Andrea Benton",
     score: "23",
     id: 4,
   },
   {
-    name: "Andrea Benton Portland Thorns",
+    name: "Andrea Benton",
     score: "23",
     id: 5,
   },
   {
-    name: "Andrea Benton Portland Thorns",
+    name: "Andrea Benton",
     score: "23",
     id: 6,
   },

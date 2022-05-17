@@ -8,7 +8,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { competitionsData } from "../../../../DummyData/competitions";
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
   return {
     activeHeading: {
       fontSize: "20px",
@@ -51,13 +51,35 @@ const useStyles = makeStyles(() => {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
+      justifyContent: "space-evenly",
     },
     type: {
       margin: "10px 0px",
       color: "rgba(64, 233, 210, 0.5)",
       fontSize: "16px",
       fontFamily: "Montserrat",
-      paddingRight: "10px",
+      padding: "0px 6px",
+      [theme.breakpoints.up(363)]: {
+        padding: "0px 7px",
+      },
+      [theme.breakpoints.up(369)]: {
+        padding: "0px 8px",
+      },
+      [theme.breakpoints.up(375)]: {
+        padding: "0px 9px",
+      },
+      [theme.breakpoints.up(381)]: {
+        padding: "0px 10px",
+      },
+      [theme.breakpoints.up(393)]: {
+        padding: "0px 12px",
+      },
+      [theme.breakpoints.up(411)]: {
+        padding: "0px 15px",
+      },
+      [theme.breakpoints.up(435)]: {
+        padding: "0px 18px",
+      },
     },
     chevron: {
       color: "white",
@@ -101,7 +123,7 @@ export default function Competitions() {
     query: { id: competitionID },
   } = useRouter();
 
-  const competitionType = "Rumours";
+  const competitionType = "News/Rumours";
 
   const { data: allCompData } = useQuery("competitions", () => {
     return competitionsData;
@@ -139,7 +161,15 @@ export default function Competitions() {
       <div className={classes.allTypes}>
         {types.map((value) => {
           const link =
-            `/comps/${competitionID}/${value?.toLowerCase()}`.replace(" ", "-");
+            value !== "News/Rumours"
+              ? `/comps/${competitionID}/${value?.toLowerCase()}`.replace(
+                  " ",
+                  "-"
+                )
+              : `/comps/${competitionID}/${"Rumours"?.toLowerCase()}`.replace(
+                  " ",
+                  "-"
+                );
 
           return (
             <Link href={link}>
@@ -158,7 +188,11 @@ export default function Competitions() {
         })}
       </div>
       {data.map((value) => {
-        return <div className={classes.compCard}>{value}</div>;
+        return (
+          <Link href={`/news/${value.id}`}>
+            <div className={classes.compCard}>{value.news}</div>
+          </Link>
+        );
       })}
     </>
   );
@@ -172,17 +206,37 @@ const types = [
   "Top Assists",
   "Top Defenders",
   "Market Values",
-  "Rumours",
+  "News/Rumours",
   "Info",
 ];
 
 const data = [
-  "Is Trinity Rodman over paid?",
-  "Is Trinity Rodman over paid?",
-  "Is Trinity Rodman over paid?",
-  "Is Trinity Rodman over paid?",
-  "Is Trinity Rodman over paid?",
-  "Is Trinity Rodman over paid?",
-  "Is Trinity Rodman over paid?",
-  "Is Trinity Rodman over paid?",
+  {
+    news: "Is Trinity Rodman over paid?",
+    id: 1,
+  },
+  {
+    news: "Is Trinity Rodman over paid?",
+    id: 2,
+  },
+  {
+    news: "Is Trinity Rodman over paid?",
+    id: 3,
+  },
+  {
+    news: "Is Trinity Rodman over paid?",
+    id: 4,
+  },
+  {
+    news: "Is Trinity Rodman over paid?",
+    id: 5,
+  },
+  {
+    news: "Is Trinity Rodman over paid?",
+    id: 6,
+  },
+  {
+    news: "Is Trinity Rodman over paid?",
+    id: 7,
+  },
 ];

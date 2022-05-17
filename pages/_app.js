@@ -1,5 +1,6 @@
+import React from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { orange } from "@mui/material/colors";
+import Image from "next/image";
 import { makeStyles } from "@mui/styles";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -21,13 +22,19 @@ const useStyles = makeStyles(() => {
     mainContent: {
       width: "100%",
       height: "calc(100% - 64px)",
-      padding: "0px 10px 65px",
+      padding: "0px 12px 65px",
       overflow: "scroll",
       scrollbarWidth: "none" /* IE and Edge */,
       msOverflowStyle: "none" /* Firefox */,
       "&::-webkit-scrollbar": {
         display: "none" /* Hide scrollbar for Chrome, Safari and Opera */,
       },
+    },
+    scroll: {
+      position: "absolute",
+      bottom: "60px",
+      right: "45%",
+      transform: "translateX(-50%)",
     },
   };
 });
@@ -43,13 +50,49 @@ const queryClient = new QueryClient({
 });
 
 const muiTheme = createTheme({
-  status: {
-    danger: orange[500],
+  breakpoints: {
+    values: {
+      breakTypes: 411,
+    },
   },
 });
 
 function MyApp({ Component, pageProps }) {
+  const [isVisible, setIsVisible] = React.useState(true);
+
+  const mainContainerRef = React.useRef();
+  const childContainerRef = React.useRef();
+
+  React.useEffect(() => {
+    setIsVisible(true);
+
+    setTimeout(() => {
+      const mainConatinerHeight = mainContainerRef?.current?.clientHeight;
+      const childConatinerHeight = childContainerRef?.current?.clientHeight;
+
+      if (mainConatinerHeight - 64 > childConatinerHeight) {
+        setIsVisible(false);
+      }
+    }, 500);
+  }, [pageProps]);
+
   const classes = useStyles();
+
+  const memoizedComponent = React.useMemo(
+    () => <Component {...pageProps} />,
+    [pageProps]
+  );
+
+  const handleScroll = ({ target: element }) => {
+    const bottom =
+      element?.scrollHeight - element?.scrollTop === element?.clientHeight;
+
+    if (bottom) {
+      setIsVisible(false);
+    } else {
+      setIsVisible(true);
+    }
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -57,8 +100,25 @@ function MyApp({ Component, pageProps }) {
       <ThemeProvider theme={muiTheme}>
         <div className={classes.container}>
           <Header />
-          <div className={classes.mainContent}>
-            <Component {...pageProps} />
+          <div
+            ref={mainContainerRef}
+            id="scroll-div"
+            className={classes.mainContent}
+            onScroll={handleScroll}
+          >
+            {isVisible && (
+              <div id="the-scroll-button" className={classes.scroll}>
+                <Image
+                  src="/images/scroll.svg"
+                  alt="scroll button"
+                  width="16"
+                  height="10"
+                />
+              </div>
+            )}
+            <div ref={childContainerRef} style={{ width: "100%" }}>
+              {memoizedComponent}
+            </div>
           </div>
           <Footer />
         </div>
